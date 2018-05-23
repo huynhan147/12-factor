@@ -6,7 +6,7 @@ Trong thời đại hiện đại, phần mềm thường được phân phối 
 *   Sử dụng các định dạng **khai báo** để tự động thiết lập, giảm thiểu thời gian và chi phí cho các nhà phát triển mới tham gia dự án;
 *   Có một **giao ước rõ ràng** với nền tảng hệ điều hành, cung cấp **tính di động tối đa** giữa các môi trường thực thi;
 *   Phù hợp cho **triển khai** trên nền tảng đám mây **hiện đại**, giảm bớt sự cần thiết cho các máy chủ và quản trị hệ thống;
-*   **Giảm thiểu sự khác biệt** giữa phát triển và sản xuất, cho phép **triển khai liên tục** m;
+*   **Giảm thiểu sự khác biệt** giữa phát triển và sản xuất, cho phép **triển khai liên tục** một cách nhanh chóng;
 *   Và có thể **mở rộng quy mô** mà không thay đổi đáng kể về công cụ, kiến trúc hoặc thực tiễn phát triển.
 
 Phương pháp 12-chuẩn có thể được áp dụng cho các ứng dụng được viết bằng bất kỳ ngôn ngữ lập trình nào và sử dụng bất kỳ kết hợp dịch vụ sao lưu nào (cơ sở dữ liệu, hàng đợi, bộ nhớ cache, v.v.).
