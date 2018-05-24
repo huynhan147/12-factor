@@ -16,7 +16,7 @@ Background
 
 Những người đóng góp cho tài liệu này đã trực tiếp tham gia vào việc phát triển và triển khai hàng trăm ứng dụng, và gián tiếp chứng kiến sự phát triển, vận hành và mở rộng hàng trăm nghìn ứng dụng thông qua công việc của chúng tôi trên nền tảng [Heroku](http://www.heroku.com/).
 
-Tài liệu này tổng hợp tất cả các trải nghiệm và quan sát của chúng tôi về một loạt các ứng dụng phần mềm như một dịch vụ trong thực tế. Đó là một sự triangulation về phương pháp lý tưởng cho phát triển ứng dụng, đặc biệt chú ý đến sự năng động của sự phát triển hữu cơ của ứng dụng theo thời gian, động lực của sự cộng tác giữa các nhà phát triển làm việc trên codebase của ứng dụng và [tránh chi phí vận hành phần mềm]
+Tài liệu này tổng hợp tất cả các kinh nghiệm và quan sát của chúng tôi về một loạt các ứng dụng phần mềm như một dịch vụ trong thực tế. Đó là một sự triangulation về phương pháp lý tưởng cho phát triển ứng dụng, đặc biệt chú ý đến sự năng động của sự phát triển hữu cơ của ứng dụng theo thời gian, động lực của sự cộng tác giữa các nhà phát triển làm việc trên codebase của ứng dụng và [tránh chi phí vận hành phần mềm]
 (http://blog.heroku.com/archives/2011/6/28/the_new_heroku_4_erosion_resistance_explicit_contracts/).
 
 Động lực của chúng tôi là nâng cao nhận thức về một số vấn đề hệ thống mà chúng tôi đã thấy trong phát triển ứng dụng hiện đại, để cung cấp vốn từ vựng chung để thảo luận những vấn đề đó và cung cấp một loạt giải pháp khái niệm rộng cho những vấn đề kèm theo thuật ngữ. Định dạng này được lấy cảm hứng từ sách của Martin Fowler _ [Các mẫu của Kiến trúc ứng dụng doanh nghiệp](https://books.google.com/books/about/Patterns_of_enterprise_application_archi.html?id=FyWZt5DdvFkC)_ và _[Tái cấu trúc](https://books.google.com/books/about/Refactoring.html?id=1MsETFPD3I0C)_.
@@ -65,7 +65,7 @@ III. Cấu hình
 
 ### Lưu cấu hình trong môi trường
 
- _Cấu hình_ một ứng dụng là mọi thứ có khả năng thay đổi giữa [triển khai](./codebase) (môi trường staging, môi trường thực thi, môi trường nhà phát triển, etc). Nó bao gồm:
+ _Cấu hình_ một ứng dụng là những thứ có khả năng thay đổi giữa [triển khai](./codebase) (môi trường staging, môi trường thực thi, môi trường nhà phát triển, etc). Nó bao gồm:
 
 *   Tài nguyên xử lý cơ sở dữ liệu, Memcached và [dịch vụ sao lưu khác](./backing-services)
 *   Thông tin đăng nhập cho các dịch vụ bên ngoài như Amazon S3 hoặc Twitter
@@ -75,7 +75,7 @@ III. Cấu hình
 
 Một bài kiểm tra litmus xem liệu một ứng dụng có tất cả các cấu hình một cách chính xác với code là xác định liệu codebase có thể được làm nguồn mở tại bất kỳ thời điểm nào, mà không ảnh hưởng đến bất kỳ thông tin xác thực nào.
 
-Lưu ý rằng định nghĩa "cấu hình" này không **không** bao gồm cấu hình ứng dụng nội bộ, chẳng hạn như `config / routes.rb` trong Rails, hoặc cách [module  code được kết nối](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html) trong [Spring](http://spring.io/). Loại cấu hình này không thay đổi giữa các triển khai và do đó được thực hiện tốt nhất trong code.
+Lưu ý rằng định nghĩa "cấu hình" này **không** bao gồm cấu hình ứng dụng nội bộ, chẳng hạn như `config / routes.rb` trong Rails, hoặc cách [module  code được kết nối](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html) trong [Spring](http://spring.io/). Loại cấu hình này không thay đổi giữa các triển khai và do đó được thực hiện tốt nhất trong code.
 
 Một cách tiếp cận khác để cấu hình là sử dụng các file cấu hình không được kiểm tra trong điều khiển sửa đổi, chẳng hạn như `config / database.yml` trong Rails. Đây là một cải tiến lớn so với việc sử dụng các hằng số được kiểm tra trong mã repo, nhưng vẫn có điểm yếu: rất dễ nhầm lẫn khi kiểm tra file cấu hình cho repo; có một xu hướng cho các tập tin cấu hình được phân tán ở những nơi khác nhau và các định dạng khác nhau, làm cho nó khó khăn để xem và quản lý tất cả các cấu hình ở một nơi. Hơn nữa, các định dạng này có xu hướng đặc biệt về ngôn ngữ hoặc framework.
 
