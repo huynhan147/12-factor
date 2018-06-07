@@ -13,7 +13,7 @@ Các tiến trình tắt máy một cách đơn giản khi chúng nhận đượ
 Các tiến trình cũng phải mạnh mẽ trước những sự cố bất ngờ , trong trường hợp có lỗi trong phần cứng cơ bản. Mặc dù đây là điều xảy hơn nhiều so với tắt máy một cách đơn giản với `SIGTERM`, nhưng nó vẫn có thể xảy ra. Cách tiếp cận được khuyến nghị là sử dụng một hệ thống queueing backend mạnh mẽ, chẳng hạn như Beanstalkd, trả về công việc cho hàng đợi khi client ngắt kết nối hoặc hết thời gian chờ. Dù bằng cách nào, ứng dụng 12-chuẩn được thiết kế để xử lý các kết thúc không mong muốn, không đẹp. Crash-only design đưa khái niệm này đến kết luận logic của nó.
 ## X. Dev/prod parity
 
-### Duy trì sự tương giữa giai đoạn development ,staging, và production 
+### Duy trì sự tương  giữa giai đoạn development ,staging, và production 
 
 Trước đây, đã có những khoảng cách đáng kể giữa giai đoạn development (một nhà phát triển thực hiện chỉnh sửa trực tiếp cho triển khai cục bộ của ứng dụng) và production (một triển khai đang chạy ứng dụng được người dùng cuối truy cập). Những khoảng cách này được mô tả trong ba điểm sau:
 
