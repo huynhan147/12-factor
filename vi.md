@@ -5,8 +5,8 @@ Trong thời đại hiện đại, phần mềm thường được phân phối 
 
 *   Sử dụng các định dạng **khai báo** để tự động thiết lập, giảm thiểu thời gian và chi phí cho các nhà phát triển mới tham gia dự án;
 *   Có một **giao ước rõ ràng** với nền tảng hệ điều hành, cung cấp **tính di động tối đa** giữa các môi trường thực thi;
-*   Phù hợp cho **triển khai** trên nền tảng đám mây **hiện đại**, giảm bớt sự cần thiết cho các máy chủ và quản trị hệ thống;
-*   **Giảm thiểu sự khác biệt** giữa phát triển và sản xuất, cho phép **triển khai liên tục** một cách nhanh chóng;
+*   Phù hợp cho **triển khai** trên nền tảng đám mây **hiện đại**, giảm bớt sự cần thiết cho các máy chủ và hệ thống quản lý;
+*   **Giảm thiểu sự khác biệt** giữa phát triển và sản xuất, cho phép **triển khai liên tục** một cách nhanh chóng nhất;
 *   Và có thể **mở rộng quy mô** mà không thay đổi đáng kể về công cụ, kiến trúc hoặc thực tiễn phát triển.
 
 Phương pháp 12-chuẩn có thể được áp dụng cho các ứng dụng được viết bằng bất kỳ ngôn ngữ lập trình nào và sử dụng bất kỳ kết hợp dịch vụ sao lưu nào (cơ sở dữ liệu, hàng đợi, bộ nhớ cache, v.v.).
@@ -16,15 +16,14 @@ Background
 
 Những người đóng góp cho tài liệu này đã trực tiếp tham gia vào việc phát triển và triển khai hàng trăm ứng dụng, và gián tiếp chứng kiến sự phát triển, vận hành và mở rộng hàng trăm nghìn ứng dụng thông qua công việc của chúng tôi trên nền tảng [Heroku](http://www.heroku.com/).
 
-Tài liệu này tổng hợp tất cả các trải nghiệm và quan sát của chúng tôi về một loạt các ứng dụng phần mềm như một dịch vụ trong thực tế. Đó là một sự triangulation về phương pháp lý tưởng cho phát triển ứng dụng, đặc biệt chú ý đến sự năng động của sự phát triển hữu cơ của ứng dụng theo thời gian, động lực của sự cộng tác giữa các nhà phát triển làm việc trên codebase của ứng dụng và [tránh chi phí vận hành phần mềm]
-(http://blog.heroku.com/archives/2011/6/28/the_new_heroku_4_erosion_resistance_explicit_contracts/).
+Tài liệu này tổng hợp tất cả các trải nghiệm và quan sát của chúng tôi về một loạt các ứng dụng phần mềm như một dịch vụ trong thực tế. Đó là một sự 3 khía cạnh về phương pháp lý tưởng cho phát triển ứng dụng, đặc biệt chú ý đến sự năng động của sự phát triển hữu cơ của ứng dụng theo thời gian, động lực của sự cộng tác giữa các nhà phát triển làm việc trên codebase của ứng dụng và [tránh chi phí vận hành phần mềm](http://blog.heroku.com/archives/2011/6/28/the_new_heroku_4_erosion_resistance_explicit_contracts/).
 
 Động lực của chúng tôi là nâng cao nhận thức về một số vấn đề hệ thống mà chúng tôi đã thấy trong phát triển ứng dụng hiện đại, để cung cấp vốn từ vựng chung để thảo luận những vấn đề đó và cung cấp một loạt giải pháp khái niệm rộng cho những vấn đề kèm theo thuật ngữ. Định dạng này được lấy cảm hứng từ sách của Martin Fowler _ [Các mẫu của Kiến trúc ứng dụng doanh nghiệp](https://books.google.com/books/about/Patterns_of_enterprise_application_archi.html?id=FyWZt5DdvFkC)_ và _[Tái cấu trúc](https://books.google.com/books/about/Refactoring.html?id=1MsETFPD3I0C)_.
 
 Ai nên đọc tài liệu này?
 ==============================
 
-Bất kỳ người phát triển nào đang xây dựng các ứng dụng chạy như là 1 dịch vụ. Các kĩ sư Ops triển khai hoặc điều khiển những ứng dụng như vậy.
+Bất kỳ người phát triển nào đang xây dựng các ứng dụng hướng dịch vụ. Các kĩ sư phổ thông thường triển khai hoặc điều khiển những ứng dụng như vậy.
 
 
 I. Codebase
