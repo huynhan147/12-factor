@@ -5,7 +5,7 @@
 
 Một _dịch vụ sao lưu_ là bất kỳ dịch vụ nào mà ứng dụng sử dụng kết nối mạng như là một phần trong quá trình họat động bình thường của nó . Các ví dụ bao gồm kho dữ liệu (như [MySQL](1) hoặc [CouchDB](2)), các hệ thống nhắn tin/xếp hàng (như [RabbitMQ](3) or [Beanstalkd](4)), các dịch vụ STMP cho gửi mail (such as [Postfix](5)), và các hệ thống caching (như [Memcached][6]).
 
-Các dịch vụ sao lưu như cơ sở dữ liệu thường được quản lý bới các quản trị viên hệ thống như là các triển khai trong quá trình chạy ứng dụng. Ngoài các dịch vụ được quản lý cục bộ này, ứng dụng cũng có thể có các dịch vụ được cung cấp và quản lý bới bên thứ 3. Ví dụ bao gôm dịch vụ STMP (như [Postmark](7)), dịch vụ thu thập số liệu (như [New Relic](8) hoặc (Loggly)(9)), dịch vụ binary asset (như  [Amazon S3](10)), và thậm chí cả dịch vụ sử dụng API-accessible (như [Twitter](11), [Google Maps](12), or [Last.fm](13)).
+Các dịch vụ sao lưu như cơ sở dữ liệu thường được quản lý bới các quản trị viên hệ thống như là các triển khai trong quá trình chạy ứng dụng. Ngoài các dịch vụ được quản lý cục bộ này, ứng dụng cũng có thể có các dịch vụ được cung cấp và quản lý bới bên thứ 3. Ví dụ bao gôm dịch vụ STMP (như [Postmark](7)), dịch vụ thu thập số liệu (như [New Relic](8) hoặc (Loggly)(9)), dịch vụ binary asset (như  [Amazon S3](10)), và thậm chí cả dịch vụ có thể sử dụng API (như [Twitter](11), [Google Maps](12), or [Last.fm](13)).
 
 **Code ứng dụng theo 12-chuẩn không phân biệt dịch vụ cục bộ hay dịch vụ bên thứ ba.** Đối với ứng dụng,cả hai đều là tài nguyên đính kèm, được truy cập qua URL hoặc các định vị/thông tin xác thực khác được lưu trong [cấu hình](14). Một bản [triển khai](15) của ứng dụng 12-chuẩn có thể hoán đổi một cơ sở dữ liệu MySQL cục bộ với một cơ sở dữ liệu được quản lý bởi bên thứ ba (như [Amazon RDS](16)) mà không có bất kỳ thay đổi nào đối với code của ứng dụng. Tương tự như vậy, một máy chủ STMP cục bộ có thể hoán đổi với dịch vụ STMP của bên thứ ba (như Postmark) mà không phải thay đổi code. Trong cả hai trường hợp, chỉ tài nguyên xử lý trong cấu hình cần được thay đổi.
 
@@ -20,12 +20,12 @@ Tài nguyên có thể được gắn vào và tách ra khỏi các triển khai
 Một [codebase](1) được chuyển thành một bản triển khai (không phát triển) qua ba giai đoạn:
 
 * _Giai đoạn xây dựng_ là một quá trình chuyển đổi một code repo thành một gói thực thi được gọi là một _build_ . Sử dụng phiên bản của code tại một commit được chỉ định bởi quá trình triển khai, giai đoạn xây dựng sẽ lấy các [phụ thuộc] (2) vendors và biên dịch các file nhị phân và asset.
-* _Giai đoạn phát hành_ lấy bản build được tạo bởi giai đoạn xây dựng và kết hợp nó với [cấu hình](3) hiện tại của bản triển khai. Kết quả bản _phát hành_ chửa cả bản build và cấu hình và sẵn sàng để thực thi ngay trong môi trường thực thi.
+* _Giai đoạn phát hành_ lấy bản build được tạo bởi giai đoạn xây dựng và kết hợp nó với [cấu hình](3) hiện tại của bản triển khai. Kết quả bản _phát hành_ chứa cả bản build và cấu hình và sẵn sàng để thực thi ngay trong môi trường thực thi.
 * _Giai đoạn chạy_ (còn được gọi là "thời gian chạy") chạy ứng dụng trong môi trường thực thi, bằng cách khởi chạy một số tập các [tiến trình](4) của ứng dụng đối với bản phát hành đã chọn.
 
 **Ứng dụng 12-chuẩn sử dụng tách biệt rõ ràng giữa giai đoạn xây dựng, phát hành và chạy.** Ví dụ, không thể thay đổi code trong thời gian chạy, vì không có cách nào để truyền các thay đổi đó trở lại giai đoạn xây dựng
 
-Các công cụ triển khai thường sẽ chấp nhận các công cụ quản lý xuất bản, đáng chủ ý nhất là có thể roll back về xuất bản trước đó. Ví dụ, công cụ triển khai [Capistrano] (6) lưu trữ các bản phát hành trong một thư mục con có tên `release`, trong đó bản phát hành hiện tại là một liên kết tượng trưng đến thư mục phát hành hiện tại. Lệnh `rollback` của nó giúp bạn dễ dàng roll back về bản phát hành trước.
+Các công cụ triển khai thường sẽ chấp nhận các công cụ quản lý xuất bản, đáng chủ ý nhất là khả năng quay về bản phát hành trước đó. Ví dụ, công cụ triển khai [Capistrano] (6) lưu trữ các bản phát hành trong một thư mục con có tên `release`, trong đó bản phát hành hiện tại là một liên kết tượng trưng đến thư mục phát hành hiện tại. Lệnh `rollback` của nó giúp bạn dễ dàng quay về bản phát hành trước.
 
 Mỗi bản phát hành nên luôn có một ID duy nhất, như mốc thời gian của bản phát hành (như là `2011-04-06-20:32:17`) hoặc số tự  tăng (như `v100`). Các bản phát hành chỉ được thêm vào hồ sơ và một bản phát hảnh không thể thay đổi khi nó được tạo ra.Mọi thay đổi phải tạo bản phát hành mới.
 
@@ -44,7 +44,7 @@ Bộ nhớ hoặc filesystem của tiến trình có thể được sử dụng 
 
 Các đóng gói asset như [django-assetpackager](4) sử dụng filesystem như là bộ nhớ đệm cho các asset được biên dịch. Ứng dụng 12- chuẩn thích thực hiện việc biên dịch này trong [giai đoạn xây dựng](5).Các trình đóng gói asset như [Jammit](6) và [Rails asset pipeline](7)  có thể được cấu hình thành các asset package trong giai đoạn xây dựng.
 
-Một số hệ thống web dựa vào ["sticky sessions"](8) – có nghĩa là, lưu dữ liệu phiên người dùng trong bộ nhớ của tiến trình của ứng dụng và đợi các yêu cầu trong tương lai từ cùng một người sẽ được chuyển đến cùng một tiến trình. Sticky sessions ;à vi phạm 12 chuẩn và không bao giờ nên sử dụng hoặc phụ thuộc vào nó.  Các dữ liệu trang thái phiên là một gỉai pháp thay thế tốt cho các kho dữ liệu mà trong hệ thống có quy định giới hạn về thời gian, như [Memcached](9) hoặc [Redis](10).
+Một số hệ thống web dựa vào ["sticky sessions"](8) – có nghĩa là, lưu dữ liệu phiên người dùng trong bộ nhớ của tiến trình của ứng dụng và đợi các yêu cầu trong tương lai từ cùng một người sẽ được chuyển đến cùng một tiến trình. Sticky sessions là vi phạm 12 chuẩn và không bao giờ nên sử dụng hoặc phụ thuộc vào nó. Các dữ liệu trang thái phiên là một gỉai pháp thay thế tốt cho các kho dữ liệu mà trong hệ thống có quy định giới hạn về thời gian, như [Memcached](9) hoặc [Redis](10).
 ## VII. Port binding
 
 ### Xuất các dịch vụ qua port binding
@@ -55,7 +55,7 @@ Các ứng dụng web đôi khi được thực thi bên trong webserver contain
 
 Trong môi trường phát triển cục bộ, các developer truy cập vào một URL dạng `http://localhost:5000/` để sử dụng các dịch vụ cung cấp bởi ứng dụng của họ. Trong triển khai, tầng điều hướng xử lý các yêu cầu điều hướng từ một tên miền public-facing đến các tiến trình web được gắn liền với cổng.
 
-Điều này thường được thực hiện bằng cách sử dụng [khai báo phụ thuộc](3) để thêm một thư viện webserver vào ứng dụng, như [Tornado](4) cho Python, [Thin](5) cho Ruby, hoặc [Jetty](6) cho Java và các ngôn ngữ chuẩn JVM khác. Điều này xảy ra hoàn toàn trong _không gian người dùng_, có nghĩa là, trong code của ứng dụng. Các quy ước với môi trương thực thi được kết nối tới một cổng để xử lý các yêu cầu.
+Điều này thường được thực hiện bằng cách sử dụng [khai báo phụ thuộc](3) để thêm một thư viện webserver vào ứng dụng, như [Tornado](4) cho Python, [Thin](5) cho Ruby, hoặc [Jetty](6) cho Java và các ngôn ngữ chuẩn JVM khác. Điều này xảy ra hoàn toàn trong _không gian người dùng_, có nghĩa là, trong code của ứng dụng. Các quy ước với môi trường thực thi được kết nối tới một cổng để xử lý các yêu cầu.
 
 HTTP không phải là dịch vụ duy nhất có thể được xuất bởi port binding. Gần như bất kỳ loại phần mềm máy chủ nào cũng có thể được chạy thông qua một quá trình gắn kết với một cổng và chờ các yêu cầu gửi đến. Các ví dụ bao gồm [ejabberd](7) ( [XMPP](8)), và [Redis](9) ( [ giao thức Redis][10]).
 
